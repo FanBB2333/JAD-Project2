@@ -45,6 +45,10 @@ public class W7Draw extends JFrame
                     else {
                         g.setColor(Color.white);
                     }
+                    Graphics2D g2 = (Graphics2D)g; //g是Graphics对象
+                    float _distance = (float) Math.sqrt(Math.pow(positions.get(i).getKey()-positions.get(i+1).getKey(), 2) + Math.pow(positions.get(i).getValue()-positions.get(i+1).getValue(), 2));
+                    g2.setStroke(new BasicStroke(3.0f / _distance));
+
                     g.drawLine(positions.get(i).getKey(), positions.get(i).getValue(), positions.get(i+1).getKey(), positions.get(i+1).getValue());
                     System.out.println(positions.get(i));
                 }
