@@ -1,15 +1,21 @@
 package com.company;
 
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 
 public class W7Draw extends JFrame
 {
     public static int color = 1;
+    public static int diameter = 10;
+    public static ArrayList<Pair<Integer, Integer>> positions = new ArrayList<Pair<Integer, Integer>>();
+
     public static void main(String[] agrs)
     {
 
@@ -24,14 +30,14 @@ public class W7Draw extends JFrame
             @Override
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("%d, %d\n", e.getX(), e.getX());
-                g.drawOval(e.getX(), e.getY(), 10, 10);
+                positions.add(new Pair<>(e.getX(), e.getY()));
+                g.drawOval(e.getX(), e.getY(), diameter, diameter);
+                g.fillOval(e.getX(), e.getY(), diameter, diameter);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
 
-                if(e.getButton() == e.BUTTON1){
-                }
             }
         });
 
