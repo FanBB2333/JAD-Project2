@@ -9,10 +9,10 @@ import java.awt.event.MouseMotionListener;
 
 public class W7Draw extends JFrame
 {
-    public static int color = 1;
-    public static int initialized = 0;
-    public static int x_prev = -1, y_prev = -1;
-    public static int break_line = 0;
+    public static int color = 1; // 1 means black while 0 means white
+    public static int initialized = 0; // if it is the first point
+    public static int x_prev = -1, y_prev = -1; // previous location of x and y
+    public static int break_line = 0; // whether the button is uplifted
 
 
     public static void main(String[] agrs)
@@ -28,7 +28,6 @@ public class W7Draw extends JFrame
         jf.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                System.out.printf("%d, %d\n", e.getX(), e.getX());
                 // set the pen color according to the static variable
                 if(color == 1){
                     g.setColor(Color.BLACK);
