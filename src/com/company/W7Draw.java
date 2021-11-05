@@ -52,6 +52,7 @@ public class W7Draw extends JFrame
                     break_line = 0;
                     return;
                 }
+                // draw a line from the previous to the current location
                 g.drawLine(x_prev, y_prev, x, y);
                 x_prev = x;
                 y_prev = y;
@@ -67,7 +68,6 @@ public class W7Draw extends JFrame
         jf.addMouseListener(new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("mousePressed");
                 if(e.getButton() == MouseEvent.BUTTON1){
                     color = 1; // black
                 }
@@ -77,25 +77,20 @@ public class W7Draw extends JFrame
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("mouseClicked");
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("mouseReleased");
-                break_line = 1;
+                break_line = 1; // the button is uplifted
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("mouseEntered");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                System.out.println("mouseExited");
             }
-
 
         });
     }
@@ -103,7 +98,6 @@ public class W7Draw extends JFrame
 
     public W7Draw(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
 
