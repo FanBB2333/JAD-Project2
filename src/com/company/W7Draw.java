@@ -17,7 +17,7 @@ public class W7Draw extends JFrame
         jf.setSize(800,600);
         jf.setTitle("W7");
         jf.setVisible(true);
-        jf.setBackground(Color.black);
+        jf.setBackground(Color.white);
 
         Graphics g = jf.getGraphics();
         jf.addMouseMotionListener(new MouseMotionListener() {
