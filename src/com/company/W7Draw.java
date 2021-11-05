@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 
 public class W7Draw extends JFrame
 {
-
+    public static int color = 1;
     public static void main(String[] agrs)
     {
 
@@ -17,11 +17,14 @@ public class W7Draw extends JFrame
         jf.setSize(800,600);
         jf.setTitle("W7");
         jf.setVisible(true);
+        jf.setBackground(Color.black);
 
+        Graphics g = jf.getGraphics();
         jf.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("%d, %d\n", e.getX(), e.getX());
+                g.drawOval(e.getX(), e.getY(), 10, 10);
             }
 
             @Override
@@ -36,9 +39,15 @@ public class W7Draw extends JFrame
             @Override
             public void mousePressed(MouseEvent e) {
                 System.out.println("mousePressed");
-//                if(e.getButton()==e.BUTTON1){
-//                    System.out.printf("%d, %d\n", e.getX(), e.getX());
-//                }
+                if(e.getButton() == MouseEvent.BUTTON1){
+                    color = 1; // black
+                    g.setColor(Color.BLACK);
+                }
+                if(e.getButton() == MouseEvent.BUTTON3){
+                    color = 0; // white
+                    g.setColor(Color.white);
+
+                }
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -76,7 +85,6 @@ public class W7Draw extends JFrame
 
     public W7Draw(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(new newPanel());
 
     }
 
