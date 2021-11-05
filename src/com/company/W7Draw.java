@@ -1,13 +1,15 @@
 package com.company;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 
 public class W7Draw extends JFrame
-{   
+{
+
     public static void main(String[] agrs)
     {
 
@@ -15,6 +17,7 @@ public class W7Draw extends JFrame
         jf.setSize(800,600);
         jf.setTitle("W7");
         jf.setVisible(true);
+
         jf.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -63,8 +66,19 @@ public class W7Draw extends JFrame
 
         });
     }
-    
-    W7Draw(){
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    class newPanel extends JPanel{
+        protected void paintComponent(Graphics g){
+            super.paintComponent(g);
+            g.drawLine(0,0,50,50);
+            g.drawString("Banner", 0, 40);
+        }
     }
+
+    public W7Draw(){
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(new newPanel());
+
+    }
+
+
 }
