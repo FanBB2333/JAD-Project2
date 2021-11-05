@@ -18,11 +18,10 @@ public class W7Draw extends JFrame
     public static void main(String[] agrs)
     {
 
-        W7Draw jf = new W7Draw();
-        jf.setSize(800,600);
+        Frame jf = new W7Draw();
         jf.setTitle("W7");
+        jf.setSize(800,600);
         jf.setVisible(true);
-        jf.setBackground(Color.white);
 
         Graphics g = jf.getGraphics();
         jf.addMouseMotionListener(new MouseMotionListener() {
@@ -39,7 +38,7 @@ public class W7Draw extends JFrame
                 int x = e.getX();
                 int y = e.getY();
                 float _distance = (float) Math.sqrt(Math.pow(x-x_prev, 2) + Math.pow(y-y_prev, 2));
-                g2.setStroke(new BasicStroke(3.0f / _distance)); // the faster it moves, the thinner stroke will be
+                g2.setStroke(new BasicStroke(5.0f / _distance)); // the faster it moves, the thinner stroke will be
                 // if we need to paint the first point
                 // or we need to uplift the button and press again, the line should not be continuous
                 if(initialized == 0 || break_line == 1){
@@ -95,6 +94,8 @@ public class W7Draw extends JFrame
 
     public W7Draw(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.getContentPane().setBackground(Color.white);
+
     }
 
 
