@@ -15,8 +15,7 @@ public class W7Draw extends JFrame
     public static int initialized = 0;
     public static int x_prev = -1, y_prev = -1;
     public static int break_line = 0;
-    public static ArrayList<Integer> colors = new ArrayList<Integer>();
-    public static ArrayList<Integer> breaks = new ArrayList<Integer>();
+
 
     public static void main(String[] agrs)
     {
@@ -28,14 +27,11 @@ public class W7Draw extends JFrame
         jf.setBackground(Color.white);
 
         Graphics g = jf.getGraphics();
-        int i = 1;
         jf.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("%d, %d\n", e.getX(), e.getX());
-                if(break_line == 1){
-                    return;
-                }
+                // set the pen color according to the static variable
                 if(color == 1){
                     g.setColor(Color.BLACK);
                 }
@@ -46,11 +42,14 @@ public class W7Draw extends JFrame
                 int x = e.getX();
                 int y = e.getY();
                 float _distance = (float) Math.sqrt(Math.pow(x-x_prev, 2) + Math.pow(y-y_prev, 2));
-//                g2.setStroke(new BasicStroke(3.0f / _distance));
-                if(initialized == 0){
+                g2.setStroke(new BasicStroke(3.0f / _distance)); // the faster it moves, the thinner stroke will be
+                // if we need to paint the first point
+                // or we need to uplift the button and press again, the line should not be continuous
+                if(initialized == 0 || break_line == 1){
                     x_prev = x;
                     y_prev = y;
                     initialized = 1;
+                    break_line = 0;
                     return;
                 }
                 g.drawLine(x_prev, y_prev, x, y);
@@ -71,12 +70,9 @@ public class W7Draw extends JFrame
                 System.out.println("mousePressed");
                 if(e.getButton() == MouseEvent.BUTTON1){
                     color = 1; // black
-                    g.setColor(Color.BLACK);
                 }
                 if(e.getButton() == MouseEvent.BUTTON3){
                     color = 0; // white
-                    g.setColor(Color.white);
-
                 }
             }
             @Override
@@ -87,20 +83,17 @@ public class W7Draw extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("mouseReleased");
-
-
+                break_line = 1;
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 System.out.println("mouseEntered");
-
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 System.out.println("mouseExited");
-
             }
 
 
