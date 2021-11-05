@@ -1,6 +1,5 @@
 package com.company;
 
-import javafx.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +12,9 @@ import java.util.ArrayList;
 public class W7Draw extends JFrame
 {
     public static int color = 1;
-    public static int diameter = 10;
-    public static ArrayList<Pair<Integer, Integer>> positions = new ArrayList<Pair<Integer, Integer>>();
+    public static int initialized = 0;
+    public static int x_prev = -1, y_prev = -1;
+    public static int break_line = 0;
     public static ArrayList<Integer> colors = new ArrayList<Integer>();
     public static ArrayList<Integer> breaks = new ArrayList<Integer>();
 
@@ -28,32 +28,35 @@ public class W7Draw extends JFrame
         jf.setBackground(Color.white);
 
         Graphics g = jf.getGraphics();
+        int i = 1;
         jf.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("%d, %d\n", e.getX(), e.getX());
-                positions.add(new Pair<>(e.getX(), e.getY()));
-                colors.add(color);
-                breaks.add(0);
-                for(int i = 0; i < positions.size() - 1; i++){
-                    if(breaks.get(i) == 1){
-                        continue;
-                    }
-                    if(colors.get(i) == 1){
-                        g.setColor(Color.BLACK);
-                    }
-                    else {
-                        g.setColor(Color.white);
-                    }
-                    Graphics2D g2 = (Graphics2D)g; //g是Graphics对象
-                    float _distance = (float) Math.sqrt(Math.pow(positions.get(i).getKey()-positions.get(i+1).getKey(), 2) + Math.pow(positions.get(i).getValue()-positions.get(i+1).getValue(), 2));
-                    g2.setStroke(new BasicStroke(3.0f / _distance));
-
-                    g.drawLine(positions.get(i).getKey(), positions.get(i).getValue(), positions.get(i+1).getKey(), positions.get(i+1).getValue());
-                    System.out.println(positions.get(i));
+                if(break_line == 1){
+                    return;
                 }
-//                g.drawOval(e.getX(), e.getY(), diameter, diameter);
-//                g.fillOval(e.getX(), e.getY(), diameter, diameter);
+                if(color == 1){
+                    g.setColor(Color.BLACK);
+                }
+                else {
+                    g.setColor(Color.white);
+                }
+                Graphics2D g2 = (Graphics2D)g;
+                int x = e.getX();
+                int y = e.getY();
+                float _distance = (float) Math.sqrt(Math.pow(x-x_prev, 2) + Math.pow(y-y_prev, 2));
+//                g2.setStroke(new BasicStroke(3.0f / _distance));
+                if(initialized == 0){
+                    x_prev = x;
+                    y_prev = y;
+                    initialized = 1;
+                    return;
+                }
+                g.drawLine(x_prev, y_prev, x, y);
+                x_prev = x;
+                y_prev = y;
+
             }
 
             @Override
@@ -84,8 +87,7 @@ public class W7Draw extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("mouseReleased");
-                breaks.remove(breaks.size() - 1);
-                breaks.add(1);
+
 
             }
 
