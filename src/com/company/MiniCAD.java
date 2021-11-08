@@ -18,7 +18,6 @@ public class MiniCAD extends JFrame {
     public MiniCAD(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.white);
-
     }
 }
 
@@ -26,11 +25,19 @@ public class MiniCAD extends JFrame {
 
 
 class Pair<T>{
-    public T x;
-    public T y;
+    private T x;
+    private T y;
     Pair(T _x, T _y){
         x = _x;
         y = _y;
+    }
+
+    public T getX(){
+        return x;
+    }
+
+    public T getY() {
+        return y;
     }
 }
 
