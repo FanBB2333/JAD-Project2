@@ -137,8 +137,8 @@ public class MiniCAD extends JFrame {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Mouse released");
 
-                current.setP1(new Pair<>(0,0));
-                current.setP2(new Pair<>(0,0));
+//                current.setP1(new Pair<>(0,0));
+//                current.setP2(new Pair<>(0,0));
             }
 
             @Override
