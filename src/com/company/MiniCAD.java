@@ -32,7 +32,21 @@ public class MiniCAD extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton _tmp = (JButton) e.getSource();
-
+                    if(_tmp.getText().equals("Line")){
+                        draw_type = 1;
+                    }
+                    else if(_tmp.getText().equals("Rect")){
+                        draw_type = 2;
+                    }
+                    else if(_tmp.getText().equals("Circle")){
+                        draw_type = 3;
+                    }
+                    else if(_tmp.getText().equals("Words")){
+                        draw_type = 4;
+                    }
+                    else{
+                        draw_type = 0;
+                    }
                     System.out.println(_tmp.getText());
                 }
             });
