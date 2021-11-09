@@ -1,10 +1,14 @@
 package com.company;
 
+import javax.sound.sampled.LineListener;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class MiniCAD extends JFrame {
     public static final Integer height = 600;
-
+    public static int draw_type = 0; // 0: idle, 1: Line, 2: Rect, 3: Circle, 4: Words
     public static void main(String[] agrs){
         Frame jf = new MiniCAD();
         jf.setTitle("MiniCAD");
@@ -18,6 +22,12 @@ public class MiniCAD extends JFrame {
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new GridLayout(4,1));
         JButton line = new JButton("Line");
+        line.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("line");
+            }
+        });
         JButton rect = new JButton("Rect");
         JButton circle = new JButton("Circle");
         JButton words = new JButton("Words");
