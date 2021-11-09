@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MiniCAD extends JFrame {
     public static final Integer height = 600;
@@ -21,20 +22,24 @@ public class MiniCAD extends JFrame {
         // Add sidebar menu
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new GridLayout(4,1));
-        JButton line = new JButton("Line");
-        line.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("line");
-            }
-        });
-        JButton rect = new JButton("Rect");
-        JButton circle = new JButton("Circle");
-        JButton words = new JButton("Words");
-        sidebar.add(line);
-        sidebar.add(rect);
-        sidebar.add(circle);
-        sidebar.add(words);
+        ArrayList<JButton> sidebuttons = new ArrayList<>();
+        sidebuttons.add(new JButton("Line"));
+        sidebuttons.add(new JButton("Rect"));
+        sidebuttons.add(new JButton("Circle"));
+        sidebuttons.add(new JButton("Words"));
+        for(int i = 0; i < sidebuttons.size(); i++){
+            sidebuttons.get(i).addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("back");
+                }
+            });
+            sidebar.add(sidebuttons.get(i));
+        }
+
+
+
+
         jf.add(sidebar, BorderLayout.EAST);
 
 
