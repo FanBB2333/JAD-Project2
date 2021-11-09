@@ -12,6 +12,7 @@ public class MiniCAD extends JFrame {
     public static Pair<Integer> start_point = new Pair<>(0, 0);
     public static Pair<Integer> end_point = new Pair<>(0, 0);
     public static ArrayList<Shape> shapes = new ArrayList<>();
+//    public static ArrayList<Color> colors = new ArrayList<>(Color.BLACK, Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.magenta);
 
     public static Shape current = new Shape() {
         @Override
@@ -31,7 +32,7 @@ public class MiniCAD extends JFrame {
 
         // Add sidebar menu
         JPanel sidebar = new JPanel();
-        sidebar.setLayout(new GridLayout(4,1));
+        sidebar.setLayout(new GridLayout(5,1));
         ArrayList<JButton> sidebuttons = new ArrayList<>();
         sidebuttons.add(new JButton("Line"));
         sidebuttons.add(new JButton("Rect"));
@@ -42,6 +43,7 @@ public class MiniCAD extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton _tmp = (JButton) e.getSource();
+                    // get painting type from button name
                     if (_tmp.getText().equals("Line")) {
                         draw_type = 1;
                     } else if (_tmp.getText().equals("Rect")) {
@@ -58,6 +60,10 @@ public class MiniCAD extends JFrame {
             });
             sidebar.add(sidebutton);
         }
+        JPanel palette = new JPanel();
+
+
+        sidebar.add(palette);
 
         jf.add(sidebar, BorderLayout.EAST);
 
