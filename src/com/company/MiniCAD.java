@@ -72,10 +72,11 @@ public class MiniCAD extends JFrame {
                     System.out.println(shapes);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
                     shapes.get(shapes.size() - 1).setP2(end_point);
+                    shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.BLACK); // Draw new shape
                     // paint all again
-                    for(Shape s : shapes){
-                        s.draw(jf.getGraphics(), Color.BLACK);
-                    }
+//                    for(Shape s : shapes){
+//                        s.draw(jf.getGraphics(), Color.BLACK);
+//                    }
                 }
 
 
@@ -144,6 +145,10 @@ public class MiniCAD extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.white);
     }
+
+    public int random(int min, int max) {
+        return  (int) (Math.random()*(max-min)+min);
+    }
 }
 
 
@@ -203,6 +208,10 @@ abstract class Shape {
         this.color = color;
     }
 
+    public Pair<Integer> getTopLeftPoint(){
+        return new Pair<>(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()));
+    }
+
 }
 
 class Line extends Shape{
@@ -229,7 +238,7 @@ class Rect extends Shape{
     @Override
     public void draw(Graphics g, Color c) {
         g.setColor(c);
-        g.drawRect(p1.getX(), p1.getY(), p2.getX() - p1.getX(), p2.getY() - p1.getY());
+        g.drawRect(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
 }
 
@@ -243,7 +252,7 @@ class Circle extends Shape{
     @Override
     public void draw(Graphics g, Color c) {
         g.setColor(c);
-        g.drawOval(p1.getX(), p1.getY(), p2.getX() - p1.getX(), p2.getY() - p1.getY());
+        g.drawOval(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p2.getX() - p1.getX()), Math.abs(p2.getY() - p1.getY()));
     }
 }
 
