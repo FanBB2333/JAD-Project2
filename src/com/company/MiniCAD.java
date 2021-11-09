@@ -31,7 +31,9 @@ public class MiniCAD extends JFrame {
             sidebuttons.get(i).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("back");
+                    JButton _tmp = (JButton) e.getSource();
+
+                    System.out.println(_tmp.getText());
                 }
             });
             sidebar.add(sidebuttons.get(i));
