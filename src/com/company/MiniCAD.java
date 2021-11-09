@@ -70,6 +70,10 @@ public class MiniCAD extends JFrame {
             });
 
             b.setBackground(c);
+            // on macos
+            b.setForeground(c);
+            b.setOpaque(true);
+            b.setBorderPainted(false);
             palette.add(b);
             System.out.println(c.toString());
 
