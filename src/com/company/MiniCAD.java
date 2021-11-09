@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MiniCAD extends JFrame {
     public static final Integer height = 600;
@@ -12,14 +13,10 @@ public class MiniCAD extends JFrame {
     public static Pair<Integer> start_point = new Pair<>(0, 0);
     public static Pair<Integer> end_point = new Pair<>(0, 0);
     public static ArrayList<Shape> shapes = new ArrayList<>();
-//    public static ArrayList<Color> colors = new ArrayList<>(Color.BLACK, Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.magenta);
+    public static ArrayList<Color> colors = new ArrayList<>(Arrays.asList(Color.BLACK, Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.magenta, Color.gray));
 
-    public static Shape current = new Shape() {
-        @Override
-        public void draw(Graphics g, Color color) {
-
-        }
-    };
+    public static Shape current = null;
+    public static Color current_color = Color.black;
 
     public static void main(String[] agrs){
         Frame jf = new MiniCAD();
@@ -61,6 +58,22 @@ public class MiniCAD extends JFrame {
             sidebar.add(sidebutton);
         }
         JPanel palette = new JPanel();
+        palette.setLayout(new GridLayout(3, 3));
+        for(Color c : colors){
+            JButton b = new JButton();
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton _tmp = (JButton) e.getSource();
+                    current_color = _tmp.getBackground();
+                }
+            });
+
+            b.setBackground(c);
+            palette.add(b);
+            System.out.println(c.toString());
+
+        }
 
 
         sidebar.add(palette);
@@ -78,7 +91,7 @@ public class MiniCAD extends JFrame {
                     System.out.println(shapes);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
                     shapes.get(shapes.size() - 1).setP2(end_point);
-                    shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.BLACK); // Draw new shape
+                    shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
                     // paint all again
 //                    for(Shape s : shapes){
 //                        s.draw(jf.getGraphics(), Color.BLACK);
@@ -104,8 +117,8 @@ public class MiniCAD extends JFrame {
             public void mousePressed(MouseEvent e) {
                 System.out.println("Mouse pressed");
                 start_point = new Pair<>(e.getX(), e.getY());
-                current.setP1(start_point);
-                end_point = start_point; // Initialize end point
+//                current.setP1(start_point);
+//                end_point = start_point; // Initialize end point
                 if(draw_type == 1) {
                     shapes.add(new Line(start_point, end_point));
                 } else if(draw_type == 2) {
@@ -115,6 +128,8 @@ public class MiniCAD extends JFrame {
                 } else if(draw_type == 4) {
                     shapes.add(new Words(start_point, end_point));
                 }
+                current = shapes.get(shapes.size() - 1);
+                current.setColor(current_color);
 
             }
 
@@ -212,6 +227,10 @@ abstract class Shape {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public Pair<Integer> getTopLeftPoint(){
