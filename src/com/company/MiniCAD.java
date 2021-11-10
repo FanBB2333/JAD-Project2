@@ -216,6 +216,8 @@ abstract class Shape {
     public Color color = Color.black;
     public abstract void draw(Graphics g, Color c);
 
+    public abstract boolean isInside(Pair<Integer> p);
+
     public void setP1(Pair<Integer> p1) {
         this.p1 = p1;
     }
@@ -241,6 +243,10 @@ abstract class Shape {
         return new Pair<>(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()));
     }
 
+    public Pair<Integer> getBottomRightPoint(){
+        return new Pair<>(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()));
+    }
+
 }
 
 class Line extends Shape{
@@ -254,6 +260,13 @@ class Line extends Shape{
     public void draw(Graphics g, Color c) {
         g.setColor(c);
         g.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
+
+    @Override
+    public boolean isInside(Pair<Integer> p) {
+        int _x = p.getX();
+        int _y = p.getY();
+        return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
     }
 }
 
@@ -269,6 +282,7 @@ class Rect extends Shape{
         g.setColor(c);
         g.drawRect(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
+    
 }
 
 class Circle extends Shape{
