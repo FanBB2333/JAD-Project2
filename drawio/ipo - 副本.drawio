@@ -1,0 +1,166 @@
+<mxfile host="65bd71144e" pages="1">
+    <diagram id="aaj7mL1S4IDT17MkTl8F" name="第 1 页">
+        <mxGraphModel dx="1963" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5" value="&lt;font style=&quot;font-size: 20px&quot;&gt;输入&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;font style=&quot;font-size: 20px&quot;&gt;处理&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;span style=&quot;font-size: 20px&quot;&gt;输出&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&lt;font style=&quot;font-size: 18px&quot;&gt;账户密码登录&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="300" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;font style=&quot;font-size: 18px ; font-weight: normal&quot;&gt;用户验证登录客户端&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="300" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;font style=&quot;font-size: 18px ; font-weight: normal&quot;&gt;显示管理员登录界面&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="300" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="shape=flexArrow;endArrow=classic;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="349" as="sourcePoint"/>
+                        <mxPoint x="1505" y="349" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="" style="shape=flexArrow;endArrow=classic;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="350" as="sourcePoint"/>
+                        <mxPoint x="1725" y="350" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;选择编辑账户，输入修改信息&amp;nbsp;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="430" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;向服务器提交请求，发起修改信息请求&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="430" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;显示信息已修改&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="430" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="479" as="sourcePoint"/>
+                        <mxPoint x="1505" y="479" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="480" as="sourcePoint"/>
+                        <mxPoint x="1725" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;选择添加产业，输入产业信息&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="560" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;向服务器提交请求，发起添加产业请求&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="560" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;显示产业信息已添加&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="560" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="609" as="sourcePoint"/>
+                        <mxPoint x="1505" y="609" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="39" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="610" as="sourcePoint"/>
+                        <mxPoint x="1725" y="610" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="&lt;span style=&quot;font-size: 18px; white-space: normal;&quot;&gt;选择编辑产业，输入产业信息&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="690" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="&lt;span style=&quot;font-size: 18px; font-weight: 400; white-space: normal;&quot;&gt;向服务器提交请求，发起编辑产业请求&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="690" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="&lt;span style=&quot;font-size: 18px; white-space: normal;&quot;&gt;显示产业信息已编辑&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="690" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="739" as="sourcePoint"/>
+                        <mxPoint x="1505" y="739" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="44" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="740" as="sourcePoint"/>
+                        <mxPoint x="1725" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="&lt;span style=&quot;font-size: 18px; white-space: normal;&quot;&gt;选择删除产业，输入产业信息&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="820" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="&lt;span style=&quot;font-size: 18px; font-weight: 400; white-space: normal;&quot;&gt;向服务器提交请求，发起删除产业请求&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="820" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="&lt;span style=&quot;font-size: 18px; white-space: normal;&quot;&gt;显示产业信息已删除&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="820" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="869" as="sourcePoint"/>
+                        <mxPoint x="1505" y="869" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="870" as="sourcePoint"/>
+                        <mxPoint x="1725" y="870" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="50" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;选择删除账户，输入账户信息&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="950" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;span style=&quot;font-weight: normal; font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;向服务器提交请求，发起删除账户请求&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="950" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="&lt;font style=&quot;font-size: 18px; font-weight: normal;&quot;&gt;显示账户已删除&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="950" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="999" as="sourcePoint"/>
+                        <mxPoint x="1505" y="999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="54" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="1000" as="sourcePoint"/>
+                        <mxPoint x="1725" y="1000" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="55" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;选择新建账户用户，输入账户信息&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1310" y="1080" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;向服务器提交请求，发起新建账户请求&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1530" y="1080" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;显示账户新建成功&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;fontSize=18;" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="1080" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1455" y="1129" as="sourcePoint"/>
+                        <mxPoint x="1505" y="1129" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="59" value="" style="shape=flexArrow;endArrow=classic;html=1;fontSize=18;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1675" y="1130" as="sourcePoint"/>
+                        <mxPoint x="1725" y="1130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
