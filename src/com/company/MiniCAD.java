@@ -122,19 +122,30 @@ public class MiniCAD extends JFrame {
             public void mousePressed(MouseEvent e) {
                 System.out.println("Mouse pressed");
                 start_point = new Pair<>(e.getX(), e.getY());
+                int selected = -1;
+                for(Shape s : shapes){
+                    if(s.isInside(start_point)){
+                        selected = shapes.indexOf(s);
+                        System.out.println("Selected: " + selected);
+                    }
+                }
 //                current.setP1(start_point);
 //                end_point = start_point; // Initialize end point
-                if(draw_type == 1) {
-                    shapes.add(new Line(start_point, end_point));
-                } else if(draw_type == 2) {
-                    shapes.add(new Rect(start_point, end_point));
-                } else if(draw_type == 3) {
-                    shapes.add(new Circle(start_point, end_point));
-                } else if(draw_type == 4) {
-                    shapes.add(new Words(start_point, end_point));
+                // If do not selected any shape
+                if(selected == -1){
+                    if(draw_type == 1) {
+                        shapes.add(new Line(start_point, end_point));
+                    } else if(draw_type == 2) {
+                        shapes.add(new Rect(start_point, end_point));
+                    } else if(draw_type == 3) {
+                        shapes.add(new Circle(start_point, end_point));
+                    } else if(draw_type == 4) {
+                        shapes.add(new Words(start_point, end_point));
+                    }
+                    current = shapes.get(shapes.size() - 1);
+                    current.setColor(current_color);
                 }
-                current = shapes.get(shapes.size() - 1);
-                current.setColor(current_color);
+
 
             }
 
@@ -156,11 +167,6 @@ public class MiniCAD extends JFrame {
 
             }
         });
-
-
-
-
-
 
         jf.setVisible(true);
 
@@ -272,7 +278,7 @@ class Line extends Shape{
         Pair<Integer> P1_P = new Pair<>(p.getX() - p1.getX(), p.getY() - p1.getY());
         Pair<Integer> P1_P2 = new Pair<>(p2.getX() - p1.getX(), p2.getY() - p1.getY());
         double _dist = Math.abs(P1_P.getX() * P1_P2.getY() - P1_P.getY() * P1_P2.getX()) / p1.distance(p2);
-        return _dist < 5;
+        return _dist < 5.0;
     }
 }
 
