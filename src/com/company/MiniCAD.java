@@ -4,8 +4,11 @@ import javax.sound.sampled.LineListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static java.lang.System.exit;
 
 public class MiniCAD extends JFrame {
     public static final Integer height = 600;
@@ -29,13 +32,60 @@ public class MiniCAD extends JFrame {
     public static boolean dragging;
 
     public static void main(String[] agrs){
-        Frame jf = new MiniCAD();
+        JFrame jf = new MiniCAD();
         jf.setTitle("MiniCAD");
         jf.setSize(800,600);
         jf.setLocationRelativeTo(null); // move to center
 
         Graphics g = jf.getGraphics();
         jf.setLayout(new BorderLayout());
+        // Add menubar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+
+
+        menuBar.add(fileMenu);
+        JMenuItem openFile = new JMenuItem("Open");
+        JMenuItem saveFile = new JMenuItem("Save");
+        JMenuItem exit = new JMenuItem("Exit");
+        openFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser();
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jfc.showDialog(new JLabel(), "Open");
+                jfc.setVisible(true);
+                File file = jfc.getSelectedFile();
+                System.out.println(file.getAbsolutePath());
+            }
+        });
+
+        saveFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser();
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jfc.showSaveDialog(new JLabel());
+                jfc.setVisible(true);
+                File file = jfc.getSelectedFile();
+                System.out.println(file.getAbsolutePath());
+            }
+        });
+
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Exit");
+                System.exit(0);
+            }
+
+
+        });
+
+        fileMenu.add(openFile);
+        fileMenu.add(saveFile);
+        fileMenu.add(exit);
+        jf.setJMenuBar(menuBar);
 
         // Add sidebar menu
         JPanel sidebar = new JPanel();
