@@ -12,11 +12,20 @@ public class MiniCAD extends JFrame {
     public static int draw_type = 0; // 0: idle, 1: Line, 2: Rect, 3: Circle, 4: Words
     public static Pair<Integer> start_point = new Pair<>(0, 0);
     public static Pair<Integer> end_point = new Pair<>(0, 0);
+    public static Pair<Integer> drag_start = new Pair<>(0, 0);
+    public static Pair<Integer> drag_end = new Pair<>(0, 0);
+    public static Pair<Integer> p1_saved = new Pair<>(0, 0);
+    public static Pair<Integer> p2_saved = new Pair<>(0, 0);
+
     public static ArrayList<Shape> shapes = new ArrayList<>();
     public static ArrayList<Color> colors = new ArrayList<>(Arrays.asList(Color.BLACK, Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.magenta, Color.gray));
 
     public static Shape current = null;
     public static Color current_color = Color.black;
+
+    public static Shape selected = null;
+
+    public static boolean dragging;
 
     public static void main(String[] agrs){
         Frame jf = new MiniCAD();
@@ -89,20 +98,28 @@ public class MiniCAD extends JFrame {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                System.out.printf("type: %d\n", draw_type);
-                if(draw_type != 0) {
+                if(selected != null){
+                    selected.draw(jf.getGraphics(), Color.white);
+                    selected.setP1(new Pair<>(p1_saved.getX() + e.getX() - drag_start.getX(), p1_saved.getY() + e.getY() - drag_start.getY()));
+                    selected.setP2(new Pair<>(p2_saved.getX() + e.getX() - drag_start.getX(), p2_saved.getY() + e.getY() - drag_start.getY()));
+
+//                    selected.move(new Pair<>(e.getX() - drag_start.getX(), e.getY() - drag_start.getY()));
+                }
+
+                if(draw_type != 0 && selected == null) {
                     end_point = new Pair<>(e.getX(), e.getY());
-                    System.out.println(shapes);
+//                    System.out.println(shapes);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
                     shapes.get(shapes.size() - 1).setP2(end_point);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
                     // paint all again
-                    for(Shape s : shapes){
-                        s.draw(jf.getGraphics(), Color.BLACK);
-                    }
+
+                }
+                for(Shape s : shapes){
+                    s.draw(jf.getGraphics(), Color.BLACK);
                 }
 
-
+//                drag_start = new Pair<>(e.getX(), e.getY());
             }
 
             @Override
@@ -122,17 +139,25 @@ public class MiniCAD extends JFrame {
             public void mousePressed(MouseEvent e) {
                 System.out.println("Mouse pressed");
                 start_point = new Pair<>(e.getX(), e.getY());
-                int selected = -1;
+
                 for(Shape s : shapes){
-                    if(s.isInside(start_point)){
-                        selected = shapes.indexOf(s);
+                    if(start_point != null && s.isInside(start_point) && selected == null){
+                        selected = s;
                         System.out.println("Selected: " + selected);
+                        drag_start = new Pair<>(e.getX(), e.getY());
+                        p1_saved = new Pair<>(selected.p1.getX(), selected.p1.getY());
+
+                        p2_saved = new Pair<>(selected.p2.getX(), selected.p2.getY());
+
+                        break;
                     }
                 }
+//                selected = null;
 //                current.setP1(start_point);
 //                end_point = start_point; // Initialize end point
                 // If do not selected any shape
-                if(selected == -1){
+                if(selected == null){
+                    System.out.println("drawing");
                     if(draw_type == 1) {
                         shapes.add(new Line(start_point, end_point));
                     } else if(draw_type == 2) {
@@ -152,6 +177,11 @@ public class MiniCAD extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Mouse released");
+                selected = null;
+                drag_start = null;
+                p1_saved = null;
+                p2_saved = null;
+                start_point = null;
 
 //                current.setP1(new Pair<>(0,0));
 //                current.setP2(new Pair<>(0,0));
@@ -229,6 +259,8 @@ abstract class Shape {
 
     public abstract boolean isInside(Pair<Integer> p);
 
+    public abstract void move(Pair<Integer> p);
+
     public void setP1(Pair<Integer> p1) {
         this.p1 = p1;
     }
@@ -280,6 +312,12 @@ class Line extends Shape{
         double _dist = Math.abs(P1_P.getX() * P1_P2.getY() - P1_P.getY() * P1_P2.getX()) / p1.distance(p2);
         return _dist < 5.0;
     }
+
+    @Override
+    public void move(Pair<Integer> p) {
+        p1.setNew(p1.getX() + p.getX(), p1.getY() + p.getY());
+        p2.setNew(p2.getX() + p.getX(), p2.getY() + p.getY());
+    }
 }
 
 class Rect extends Shape{
@@ -300,6 +338,12 @@ class Rect extends Shape{
         int _x = p.getX();
         int _y = p.getY();
         return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
+    }
+
+    @Override
+    public void move(Pair<Integer> p) {
+        p1.setNew(p1.getX() + p.getX(), p1.getY() + p.getY());
+        p2.setNew(p2.getX() + p.getX(), p2.getY() + p.getY());
     }
 
 }
@@ -323,6 +367,12 @@ class Circle extends Shape{
         double radius = (p1.distance(p2)) / (2 * Math.sqrt(2));
         return p.distance(center) < radius;
     }
+
+    @Override
+    public void move(Pair<Integer> p) {
+        p1.setNew(p1.getX() + p.getX(), p1.getY() + p.getY());
+        p2.setNew(p2.getX() + p.getX(), p2.getY() + p.getY());
+    }
 }
 
 class Words extends Shape{
@@ -342,6 +392,12 @@ class Words extends Shape{
     @Override
     public boolean isInside(Pair<Integer> p) {
         return false;
+    }
+
+    @Override
+    public void move(Pair<Integer> p) {
+        p1.setNew(p1.getX() + p.getX(), p1.getY() + p.getY());
+        p2.setNew(p2.getX() + p.getX(), p2.getY() + p.getY());
     }
 
     public void setWord (String _word){
