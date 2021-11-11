@@ -97,9 +97,9 @@ public class MiniCAD extends JFrame {
                     shapes.get(shapes.size() - 1).setP2(end_point);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
                     // paint all again
-//                    for(Shape s : shapes){
-//                        s.draw(jf.getGraphics(), Color.BLACK);
-//                    }
+                    for(Shape s : shapes){
+                        s.draw(jf.getGraphics(), Color.BLACK);
+                    }
                 }
 
 
@@ -115,6 +115,7 @@ public class MiniCAD extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Mouse clicked");
+//                String s = JOptionPane.showInputDialog(null, "Please enter your words", "Words", JOptionPane.PLAIN_MESSAGE);
             }
 
             @Override
@@ -207,6 +208,10 @@ class Pair<T>{
         x = _x;
         y = _y;
     }
+
+    double distance(Pair<T> p){
+        return Math.sqrt(Math.pow((int)p.getX() - (int)x, 2) + Math.pow((int)p.getY() - (int)y, 2));
+    }
 }
 
 
@@ -264,9 +269,10 @@ class Line extends Shape{
 
     @Override
     public boolean isInside(Pair<Integer> p) {
-        int _x = p.getX();
-        int _y = p.getY();
-        return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
+        Pair<Integer> P1_P = new Pair<>(p.getX() - p1.getX(), p.getY() - p1.getY());
+        Pair<Integer> P1_P2 = new Pair<>(p2.getX() - p1.getX(), p2.getY() - p1.getY());
+        double _dist = Math.abs(P1_P.getX() * P1_P2.getY() - P1_P.getY() * P1_P2.getX()) / p1.distance(p2);
+        return _dist < 5;
     }
 }
 
@@ -282,7 +288,14 @@ class Rect extends Shape{
         g.setColor(c);
         g.drawRect(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
-    
+
+    @Override
+    public boolean isInside(Pair<Integer> p) {
+        int _x = p.getX();
+        int _y = p.getY();
+        return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
+    }
+
 }
 
 class Circle extends Shape{
@@ -296,6 +309,13 @@ class Circle extends Shape{
     public void draw(Graphics g, Color c) {
         g.setColor(c);
         g.drawOval(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p2.getX() - p1.getX()), Math.abs(p2.getY() - p1.getY()));
+    }
+
+    @Override
+    public boolean isInside(Pair<Integer> p) {
+        Pair<Integer> center = new Pair<>(getTopLeftPoint().getX() + Math.abs(p2.getX() - p1.getX())/2, getTopLeftPoint().getY() + Math.abs(p2.getY() - p1.getY())/2);
+        double radius = (p1.distance(p2)) / (2 * Math.sqrt(2));
+        return p.distance(center) < radius;
     }
 }
 
@@ -311,6 +331,11 @@ class Words extends Shape{
     public void draw(Graphics g, Color c) {
         g.setColor(c);
         g.drawString(_word, p1.getX(), p1.getY());
+    }
+
+    @Override
+    public boolean isInside(Pair<Integer> p) {
+        return false;
     }
 
     public void setWord (String _word){
