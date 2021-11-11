@@ -21,50 +21,41 @@ public class Main {
 
 class Repo{
     public ArrayList<Integer> tasks = new ArrayList<>();
+    static boolean lock = false;
+
     public Repo(String items){
         String[] _tasks = items.split(" ");
         for (String task : _tasks) {
             tasks.add(Integer.parseInt(task));
         }
     }
-//    public int getSize(int id){
-//        synchronized (this){
-//            try{
-//                int task = tasks.remove(0);
-//                System.out.printf("Thread-%d finish %d\n", id, task);
-//
-//            }
-//
-//
-//            return tasks.size();
-//        }
-//    }
+
+    public Repo(){
+
+    }
+
+    public int getSize(){
+        return tasks.size();
+    }
 
     public synchronized int p1(){
-        int task = tasks.remove(0);
-        System.out.printf("Thread-%d finish %d\n", 0, task);
-        this.notify();
-        try {
-            this.wait();
+        if(!lock) {
+            int task = tasks.remove(0);
+            System.out.printf("%s finish %d\n", Thread.currentThread().getName(), task);
+            this.notify();
+            lock = true;
         }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
+
+
         return tasks.size();
     }
 
     public synchronized int p2(){
-        int task = tasks.remove(0);
-        System.out.printf("Thread-%d finish %d\n", 1, task);
-        this.notify();
-        try {
-            this.wait();
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
-        if(task == 0){
-
+        if(lock) {
+            int task = tasks.remove(0);
+            System.out.printf("%s finish %d\n", Thread.currentThread().getName(), task);
+            this.notify();
+            lock = false;
         }
         return tasks.size();
     }
@@ -78,7 +69,7 @@ class Worker1 implements Runnable{
     @Override
     public void run() {
         while (r.p1() > 0){
-            System.out.println(" 1: " + r.tasks.size());
+//            System.out.println(" 1: " + r.tasks.size());
         }
 
     }
@@ -95,7 +86,7 @@ class Worker2 implements Runnable{
     @Override
     public void run() {
         while (r.p2() > 0){
-            System.out.println(" 2: " + r.tasks.size());
+//            System.out.println(" 2: " + r.tasks.size());
 
         }
 
