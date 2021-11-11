@@ -206,9 +206,9 @@ public class MiniCAD extends JFrame {
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
                     shapes.get(shapes.size() - 1).setP2(end_point);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
-                    // paint all again
 
                 }
+                // paint all again
                 for(Shape s : shapes){
                     s.draw(jf.getGraphics(), Color.BLACK);
                 }
@@ -240,7 +240,6 @@ public class MiniCAD extends JFrame {
                         System.out.println("Selected: " + selected);
                         drag_start = new Pair<>(e.getX(), e.getY());
                         p1_saved = new Pair<>(selected.p1.getX(), selected.p1.getY());
-
                         p2_saved = new Pair<>(selected.p2.getX(), selected.p2.getY());
 
                         break;
