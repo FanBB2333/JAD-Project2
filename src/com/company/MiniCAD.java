@@ -267,6 +267,14 @@ abstract class Shape {
 
     public abstract void move(Pair<Integer> p);
 
+    public void resize(double ratio){
+        Pair<Integer> center = new Pair<>((int)((p1.getX() + p2.getX()) / 2), (int)((p1.getY() + p2.getY()) / 2));
+        Pair<Integer> new_p1 = new Pair<>((int)(center.getX() - (center.getX() - p1.getX()) * ratio), (int)(center.getY() - (center.getY() - p1.getY()) * ratio));
+        Pair<Integer> new_p2 = new Pair<>((int)(center.getX() - (center.getX() - p2.getX()) * ratio), (int)(center.getY() - (center.getY() - p2.getY()) * ratio));
+        p1 = new_p1;
+        p2 = new_p2;
+    }
+
     public void setP1(Pair<Integer> p1) {
         this.p1 = p1;
     }
@@ -275,10 +283,6 @@ abstract class Shape {
         this.p2 = p2;
     }
 
-    public void setP12(Pair<Integer> p1, Pair<Integer> p2) {
-        this.p1 = p1;
-        this.p2 = p2;
-    }
 
     public void setColor(Color color) {
         this.color = color;
@@ -324,6 +328,7 @@ class Line extends Shape{
         p1.setNew(p1.getX() + p.getX(), p1.getY() + p.getY());
         p2.setNew(p2.getX() + p.getX(), p2.getY() + p.getY());
     }
+
 }
 
 class Rect extends Shape{
@@ -397,6 +402,7 @@ class Words extends Shape{
 
     @Override
     public boolean isInside(Pair<Integer> p) {
+
         return false;
     }
 
