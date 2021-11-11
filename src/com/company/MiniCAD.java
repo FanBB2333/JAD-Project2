@@ -25,6 +25,7 @@ public class MiniCAD extends JFrame {
 
     public static Shape selected = null;
 
+    public static String words = null;
     public static boolean dragging;
 
     public static void main(String[] agrs){
@@ -58,6 +59,7 @@ public class MiniCAD extends JFrame {
                         draw_type = 3;
                     } else if (_tmp.getText().equals("Words")) {
                         draw_type = 4;
+                        words = JOptionPane.showInputDialog(null, "Input words");
                     } else {
                         draw_type = 0;
                     }
@@ -165,7 +167,10 @@ public class MiniCAD extends JFrame {
                     } else if(draw_type == 3) {
                         shapes.add(new Circle(start_point, end_point));
                     } else if(draw_type == 4) {
-                        shapes.add(new Words(start_point, end_point));
+                        Words _t = new Words(start_point, end_point);
+                        _t.setWord(words);
+                        shapes.add(_t);
+
                     }
                     current = shapes.get(shapes.size() - 1);
                     current.setColor(current_color);
@@ -255,6 +260,7 @@ abstract class Shape {
     public Pair<Integer> p1 = new Pair<>(0, 0);
     public Pair<Integer> p2 = new Pair<>(0, 0);
     public Color color = Color.black;
+
     public abstract void draw(Graphics g, Color c);
 
     public abstract boolean isInside(Pair<Integer> p);
