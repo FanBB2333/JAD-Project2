@@ -246,9 +246,7 @@ public class MiniCAD extends JFrame {
                         break;
                     }
                 }
-//                selected = null;
-//                current.setP1(start_point);
-//                end_point = start_point; // Initialize end point
+
                 // If do not selected any shape
                 if(selected == null){
                     System.out.println("drawing");
@@ -280,8 +278,6 @@ public class MiniCAD extends JFrame {
                 p2_saved = null;
                 start_point = null;
 
-//                current.setP1(new Pair<>(0,0));
-//                current.setP2(new Pair<>(0,0));
             }
 
             @Override
