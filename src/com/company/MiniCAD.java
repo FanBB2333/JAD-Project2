@@ -310,7 +310,7 @@ class Line extends Shape{
         Pair<Integer> P1_P = new Pair<>(p.getX() - p1.getX(), p.getY() - p1.getY());
         Pair<Integer> P1_P2 = new Pair<>(p2.getX() - p1.getX(), p2.getY() - p1.getY());
         double _dist = Math.abs(P1_P.getX() * P1_P2.getY() - P1_P.getY() * P1_P2.getX()) / p1.distance(p2);
-        return _dist < 5.0;
+        return (_dist < 5.0) && p.getX() < Math.max(p1.getX(), p2.getX()) && p.getX() > Math.min(p1.getX(), p2.getX());
     }
 
     @Override
