@@ -210,7 +210,7 @@ public class MiniCAD extends JFrame {
                 }
                 // paint all again
                 for(Shape s : shapes){
-                    s.draw(jf.getGraphics(), Color.BLACK);
+                    s.draw(jf.getGraphics(), s.getColor());
                 }
 
 //                drag_start = new Pair<>(e.getX(), e.getY());
