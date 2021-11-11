@@ -66,8 +66,18 @@ public class MiniCAD extends JFrame {
                     System.out.println(_tmp.getText());
                 }
             });
+
+            sidebutton.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    System.out.println(e.getKeyCode());
+
+                }
+
+            });
             sidebar.add(sidebutton);
         }
+
         JPanel palette = new JPanel();
         palette.setLayout(new GridLayout(3, 3));
         for(Color c : colors){
