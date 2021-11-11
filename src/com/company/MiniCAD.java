@@ -77,6 +77,9 @@ public class MiniCAD extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     JButton _tmp = (JButton) e.getSource();
                     current_color = _tmp.getBackground();
+                    if(selected != null){
+                        selected.setColor(current_color);
+                    }
                 }
             });
 
