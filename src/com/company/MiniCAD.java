@@ -4,7 +4,7 @@ import javax.sound.sampled.LineListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,6 +57,23 @@ public class MiniCAD extends JFrame {
                 jfc.setVisible(true);
                 File file = jfc.getSelectedFile();
                 System.out.println(file.getAbsolutePath());
+                if(file.isFile()){
+                    try {
+                        FileInputStream fis = new FileInputStream(file);
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        shapes = (ArrayList<Shape>) ois.readObject();
+                        ois.close();
+                        for(Shape s : shapes){
+                            s.draw(jf.getGraphics(), s.getColor());
+                        }
+
+                    } catch (IOException | ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                }
+
             }
         });
 
@@ -69,6 +86,18 @@ public class MiniCAD extends JFrame {
                 jfc.setVisible(true);
                 File file = jfc.getSelectedFile();
                 System.out.println(file.getAbsolutePath());
+                try {
+                    FileOutputStream fos = new FileOutputStream(file);
+                    ObjectOutputStream os = new ObjectOutputStream(fos);
+//                    for(Shape s : shapes){
+//                        os.writeObject(s);
+//                    }
+                    os.writeObject(shapes);
+                    os.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
             }
         });
 
@@ -284,7 +313,7 @@ public class MiniCAD extends JFrame {
 
 
 
-class Pair<T>{
+class Pair<T> implements Serializable{
     private T x;
     private T y;
     Pair(T _x, T _y){
@@ -319,7 +348,7 @@ class Pair<T>{
 }
 
 
-abstract class Shape {
+abstract class Shape implements Serializable{
     public Pair<Integer> p1 = new Pair<>(0, 0);
     public Pair<Integer> p2 = new Pair<>(0, 0);
     public Color color = Color.black;
