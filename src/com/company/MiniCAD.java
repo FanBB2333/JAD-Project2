@@ -245,6 +245,7 @@ public class MiniCAD extends JFrame {
 
                 }
                 // paint all again
+
                 for(Shape s : shapes){
                     s.draw(jf.getGraphics(), s.getColor());
                 }
@@ -547,7 +548,7 @@ class Circle extends Shape{
 
 class Words extends Shape{
     public String _word = "Hello";
-    public int _fontSize = 10;
+    public int _fontSize = 20;
     public int height;
     public int width;
 
@@ -560,7 +561,7 @@ class Words extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
-        Font font = new Font("Arial", Font.BOLD, _fontSize);
+        Font font = new Font("Times New Roman", Font.BOLD, _fontSize);
         g.setFont(font);
         g.setColor(c);
         g.drawString(_word, p1.getX(), p1.getY());
@@ -574,7 +575,9 @@ class Words extends Shape{
     public boolean isInside(Pair<Integer> p) {
         int _x = p.getX();
         int _y = p.getY();
-        return _x > p1.getX() && _x <p1.getX() + width && _y > p1.getY() && _y < p1.getY() + height;
+        System.out.printf("%d, %d\n", width, height);
+        System.out.printf("P1: %d, %d\n", p1.getX(), p1.getY());
+        return _x > p1.getX()  && _x <p1.getX() + width && _y > p1.getY() - 0.2 * height && _y < p1.getY() + height;
 
     }
 
