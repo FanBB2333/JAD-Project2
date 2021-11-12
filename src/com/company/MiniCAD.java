@@ -29,7 +29,7 @@ public class MiniCAD extends JFrame {
     public static Shape selected = null;
 
     public static String words = null;
-    public static boolean dragging;
+    public static Shape resizing = null;
 
     public static void main(String[] agrs){
         JFrame jf = new MiniCAD();
@@ -150,6 +150,8 @@ public class MiniCAD extends JFrame {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     System.out.println(e.getKeyCode());
+                    System.out.println(resizing);
+
 
                 }
 
@@ -166,8 +168,12 @@ public class MiniCAD extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     JButton _tmp = (JButton) e.getSource();
                     current_color = _tmp.getBackground();
-                    if(selected != null){
-                        selected.setColor(current_color);
+                    if(resizing != null){
+                        resizing.setColor(current_color);
+                        resizing.draw(jf.getGraphics(), Color.white);
+                        resizing.draw(jf.getGraphics(), resizing.getColor());
+
+                        resizing = null;
                     }
                 }
             });
@@ -237,6 +243,7 @@ public class MiniCAD extends JFrame {
                 for(Shape s : shapes){
                     if(start_point != null && s.isInside(start_point) && selected == null){
                         selected = s;
+                        resizing = s;
                         System.out.println("Selected: " + selected);
                         drag_start = new Pair<>(e.getX(), e.getY());
                         p1_saved = new Pair<>(selected.p1.getX(), selected.p1.getY());
@@ -347,6 +354,7 @@ abstract class Shape implements Serializable{
     public Pair<Integer> p1 = new Pair<>(0, 0);
     public Pair<Integer> p2 = new Pair<>(0, 0);
     public Color color = Color.black;
+    public double thickness = 1;
 
     public abstract void draw(Graphics g, Color c);
 
@@ -375,6 +383,10 @@ abstract class Shape implements Serializable{
         this.color = color;
     }
 
+    public void setThickness(double thickness) {
+        this.thickness = thickness;
+    }
+
     public Color getColor() {
         return color;
     }
@@ -398,6 +410,8 @@ class Line extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((float)thickness));
         g.setColor(c);
         g.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
@@ -427,6 +441,8 @@ class Rect extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((float)thickness));
         g.setColor(c);
         g.drawRect(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
     }
@@ -455,6 +471,8 @@ class Circle extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((float)thickness));
         g.setColor(c);
         g.drawOval(getTopLeftPoint().getX(), getTopLeftPoint().getY(), Math.abs(p2.getX() - p1.getX()), Math.abs(p2.getY() - p1.getY()));
     }
@@ -483,6 +501,8 @@ class Words extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke((float)thickness));
         g.setColor(c);
         g.drawString(_word, p1.getX(), p1.getY());
     }
