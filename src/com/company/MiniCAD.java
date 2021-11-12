@@ -362,14 +362,6 @@ class Pair<T> implements Serializable{
         return y;
     }
 
-    public void setX(T _x){
-        x = _x;
-    }
-
-    public void setY(T _y){
-        y = _y;
-    }
-
     public void setNew(T _x, T _y){
         x = _x;
         y = _y;
