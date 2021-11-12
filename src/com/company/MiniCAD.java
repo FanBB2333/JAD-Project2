@@ -56,7 +56,6 @@ public class MiniCAD extends JFrame {
                 jfc.showDialog(new JLabel(), "Open");
                 jfc.setVisible(true);
                 File file = jfc.getSelectedFile();
-                System.out.println(file.getAbsolutePath());
                 if(file.isFile()){
                     try {
                         FileInputStream fis = new FileInputStream(file);
@@ -589,5 +588,8 @@ class Words extends Shape{
     @Override
     public void resize(double ratio){
         _fontSize = (int)(_fontSize * ratio);
+        if(_fontSize <= 0){
+            _fontSize = 1; // minimum font size
+        }
     }
 }
