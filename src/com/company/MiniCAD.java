@@ -152,8 +152,7 @@ public class MiniCAD extends JFrame {
                     System.out.println(e.getKeyCode());
                     System.out.println(resizing);
                     if(resizing != null){
-                        boolean _resize = false;
-                        ArrayList<Integer> _resize_codes = new ArrayList<>(Arrays.asList(61, 45, 44, 46));
+                        ArrayList<Integer> _resize_codes = new ArrayList<>(Arrays.asList(61, 45, 44, 46, 82));
                         if (_resize_codes.contains(e.getKeyCode())){
                             resizing.draw(jf.getGraphics(), Color.white);
                         }
@@ -169,8 +168,15 @@ public class MiniCAD extends JFrame {
                         else if(e.getKeyCode() == 46){
                             resizing.setThickness(resizing.getThickness() + 1);
                         }
+                        else if(e.getKeyCode() == 82){
+                            shapes.remove(resizing);
+                            resizing = null;
+
+                        }
                         if (_resize_codes.contains(e.getKeyCode())){
-                            resizing.draw(jf.getGraphics(), resizing.getColor());
+                            if(resizing != null){
+                                resizing.draw(jf.getGraphics(), resizing.getColor());
+                            }
                         }
 
                     }
@@ -529,7 +535,6 @@ class Circle extends Shape{
 
         }
 
-        System.out.println("a: " + a);
         return p.distance(focus1) + p.distance(focus2) < 2*a;
     }
 
@@ -542,7 +547,7 @@ class Circle extends Shape{
 
 class Words extends Shape{
     public String _word = "Hello";
-    public int _fontSize = 20;
+    public int _fontSize = 10;
     public int height;
     public int width;
 
@@ -569,7 +574,7 @@ class Words extends Shape{
     public boolean isInside(Pair<Integer> p) {
         int _x = p.getX();
         int _y = p.getY();
-        return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
+        return _x > p1.getX() && _x <p1.getX() + width && _y > p1.getY() && _y < p1.getY() + height;
 
     }
 
