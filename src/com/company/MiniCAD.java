@@ -409,7 +409,6 @@ abstract class Shape implements Serializable{
         this.p2 = p2;
     }
 
-
     public void setColor(Color color) {
         this.color = color;
     }
