@@ -151,6 +151,30 @@ public class MiniCAD extends JFrame {
                 public void keyPressed(KeyEvent e) {
                     System.out.println(e.getKeyCode());
                     System.out.println(resizing);
+                    if(resizing != null){
+                        boolean _resize = false;
+                        ArrayList<Integer> _resize_codes = new ArrayList<>(Arrays.asList(61, 45, 44, 46));
+                        if (_resize_codes.contains(e.getKeyCode())){
+                            resizing.draw(jf.getGraphics(), Color.white);
+                        }
+                        if(e.getKeyCode() == 61){
+                            resizing.resize(1.1);
+                        }
+                        else if(e.getKeyCode() == 45){
+                            resizing.resize(0.9);
+                        }
+                        else if(e.getKeyCode() == 44){
+                            resizing.setThickness(resizing.getThickness() - 1);
+                        }
+                        else if(e.getKeyCode() == 46){
+                            resizing.setThickness(resizing.getThickness() + 1);
+                        }
+                        if (_resize_codes.contains(e.getKeyCode())){
+                            resizing.draw(jf.getGraphics(), resizing.getColor());
+                        }
+
+                    }
+
 
 
                 }
@@ -389,6 +413,10 @@ abstract class Shape implements Serializable{
 
     public Color getColor() {
         return color;
+    }
+
+    public double getThickness(){
+        return thickness;
     }
 
     public Pair<Integer> getTopLeftPoint(){
