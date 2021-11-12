@@ -508,8 +508,29 @@ class Circle extends Shape{
     @Override
     public boolean isInside(Pair<Integer> p) {
         Pair<Integer> center = new Pair<>(getTopLeftPoint().getX() + Math.abs(p2.getX() - p1.getX())/2, getTopLeftPoint().getY() + Math.abs(p2.getY() - p1.getY())/2);
-        double radius = (p1.distance(p2)) / (2 * Math.sqrt(2));
-        return p.distance(center) < radius;
+        Pair<Integer> focus1, focus2;
+        double a, b, c;
+
+        if(getBottomRightPoint().getY() - getTopLeftPoint().getY() > getBottomRightPoint().getX() - getTopLeftPoint().getX()){
+            a = (double) (getBottomRightPoint().getY() - getTopLeftPoint().getY())/2;
+            b = (double) (getBottomRightPoint().getX() - getTopLeftPoint().getX())/2;
+            c = Math.sqrt(a*a - b*b);
+            focus1 = new Pair<>((int) center.getX(), (int) (center.getY() + c));
+            focus2 = new Pair<>((int) center.getX(), (int) (center.getY() - c));
+
+
+        }
+        else{
+            a = (double) (getBottomRightPoint().getX() - getTopLeftPoint().getX())/2;
+            b = (double) (getBottomRightPoint().getY() - getTopLeftPoint().getY())/2;
+            c = Math.sqrt(a*a - b*b);
+            focus1 = new Pair<>((int) (center.getX() + c), (int) center.getY());
+            focus2 = new Pair<>((int) (center.getX() - c), (int) center.getY());
+
+        }
+
+        System.out.println("a: " + a);
+        return p.distance(focus1) + p.distance(focus2) < 2*a;
     }
 
     @Override
@@ -521,6 +542,11 @@ class Circle extends Shape{
 
 class Words extends Shape{
     public String _word = "Hello";
+    public int _fontSize = 20;
+    public int height;
+    public int width;
+
+    public Graphics _g = null;
 
     public Words(Pair<Integer> start_point, Pair<Integer> end_point) {
         this.p1 = start_point;
@@ -529,16 +555,22 @@ class Words extends Shape{
 
     @Override
     public void draw(Graphics g, Color c) {
-        Graphics2D g2 = (Graphics2D)g;
-        g2.setStroke(new BasicStroke((float)thickness));
+        Font font = new Font("Arial", Font.BOLD, _fontSize);
+        g.setFont(font);
         g.setColor(c);
         g.drawString(_word, p1.getX(), p1.getY());
+        _g = g;
+        FontMetrics fm = _g.getFontMetrics(font);
+        height = fm.getHeight();
+        width = fm.stringWidth(_word);
     }
 
     @Override
     public boolean isInside(Pair<Integer> p) {
+        int _x = p.getX();
+        int _y = p.getY();
+        return _x > getTopLeftPoint().getX() && _x < getBottomRightPoint().getX() && _y > getTopLeftPoint().getY() && _y < getBottomRightPoint().getY();
 
-        return false;
     }
 
     @Override
@@ -549,5 +581,10 @@ class Words extends Shape{
 
     public void setWord (String _word){
         this._word = _word;
+    }
+
+    @Override
+    public void resize(double ratio){
+        _fontSize = (int)(_fontSize * ratio);
     }
 }
