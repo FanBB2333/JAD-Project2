@@ -61,6 +61,10 @@ public class MiniCAD extends JFrame {
                     try {
                         FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis);
+                        // clear the original board
+                        for(Shape s : shapes){
+                            s.draw(jf.getGraphics(), Color.white);
+                        }
                         shapes = (ArrayList<Shape>) ois.readObject();
                         ois.close();
                         for(Shape s : shapes){
