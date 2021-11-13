@@ -233,8 +233,6 @@ public class MiniCAD extends JFrame {
                     selected.draw(jf.getGraphics(), Color.white);
                     selected.setP1(new Pair<>(p1_saved.getX() + e.getX() - drag_start.getX(), p1_saved.getY() + e.getY() - drag_start.getY()));
                     selected.setP2(new Pair<>(p2_saved.getX() + e.getX() - drag_start.getX(), p2_saved.getY() + e.getY() - drag_start.getY()));
-
-//                    selected.move(new Pair<>(e.getX() - drag_start.getX(), e.getY() - drag_start.getY()));
                 }
 
                 if(draw_type != 0 && selected == null) {
@@ -248,7 +246,6 @@ public class MiniCAD extends JFrame {
                     s.draw(jf.getGraphics(), s.getColor());
                 }
 
-//                drag_start = new Pair<>(e.getX(), e.getY());
             }
 
             @Override
@@ -260,7 +257,6 @@ public class MiniCAD extends JFrame {
         jf.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                String s = JOptionPane.showInputDialog(null, "Please enter your words", "Words", JOptionPane.PLAIN_MESSAGE);
                 if(draw_type != 4 ){
                     shapes.remove(shapes.size() - 1);
                 }
