@@ -92,9 +92,7 @@ public class MiniCAD extends JFrame {
                 try {
                     FileOutputStream fos = new FileOutputStream(file);
                     ObjectOutputStream os = new ObjectOutputStream(fos);
-//                    for(Shape s : shapes){
-//                        os.writeObject(s);
-//                    }
+
                     os.writeObject(shapes);
                     os.close();
                 } catch (IOException ex) {
@@ -180,7 +178,8 @@ public class MiniCAD extends JFrame {
                                 resizing.draw(jf.getGraphics(), resizing.getColor());
                             }
                         }
-
+                        // once clicked, resizing is set to null
+                        resizing = null;
                     }
 
 
@@ -190,7 +189,7 @@ public class MiniCAD extends JFrame {
             });
             sidebar.add(sidebutton);
         }
-
+        // add palette as a JPanel
         JPanel palette = new JPanel();
         palette.setLayout(new GridLayout(3, 3));
         for(Color c : colors){
@@ -198,6 +197,7 @@ public class MiniCAD extends JFrame {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // add buttons to palette
                     JButton _tmp = (JButton) e.getSource();
                     current_color = _tmp.getBackground();
                     if(resizing != null){
@@ -211,7 +211,7 @@ public class MiniCAD extends JFrame {
             });
 
             b.setBackground(c);
-            // on macos
+            // on macos, other buttons are not displayed in right color
             b.setForeground(c);
             b.setOpaque(true);
             b.setBorderPainted(false);
@@ -229,12 +229,14 @@ public class MiniCAD extends JFrame {
 
             @Override
             public void mouseDragged(MouseEvent e) {
+                // drag the shape to a new position
                 if(selected != null){
                     selected.draw(jf.getGraphics(), Color.white);
                     selected.setP1(new Pair<>(p1_saved.getX() + e.getX() - drag_start.getX(), p1_saved.getY() + e.getY() - drag_start.getY()));
                     selected.setP2(new Pair<>(p2_saved.getX() + e.getX() - drag_start.getX(), p2_saved.getY() + e.getY() - drag_start.getY()));
                 }
 
+                // draw the shape with dynamic size display and specific color
                 if(draw_type != 0 && selected == null) {
                     end_point = new Pair<>(e.getX(), e.getY());
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
@@ -257,7 +259,9 @@ public class MiniCAD extends JFrame {
         jf.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(draw_type != 4 ){
+                // if we just click the mouse, we cannot draw a shape with a single point
+                if(draw_type != 4  && resizing == null){
+                    System.out.println("removed");
                     shapes.remove(shapes.size() - 1);
                 }
             }
