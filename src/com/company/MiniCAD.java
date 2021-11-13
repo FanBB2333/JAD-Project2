@@ -151,23 +151,29 @@ public class MiniCAD extends JFrame {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     System.out.println(resizing);
+                    // resize the shape
                     if(resizing != null){
                         ArrayList<Integer> _resize_codes = new ArrayList<>(Arrays.asList(61, 45, 44, 46, 82));
                         if (_resize_codes.contains(e.getKeyCode())){
                             resizing.draw(jf.getGraphics(), Color.white);
                         }
+                        // "+" : enlarge
                         if(e.getKeyCode() == 61){
                             resizing.resize(1.1);
                         }
+                        // "-" : shrink
                         else if(e.getKeyCode() == 45){
                             resizing.resize(0.9);
                         }
+                        // "<" : cut the thickness
                         else if(e.getKeyCode() == 44){
                             resizing.setThickness(resizing.getThickness() - 1);
                         }
+                        // ">" : add the thickness
                         else if(e.getKeyCode() == 46){
                             resizing.setThickness(resizing.getThickness() + 1);
                         }
+                        // "r" : remove the shape
                         else if(e.getKeyCode() == 82){
                             shapes.remove(resizing);
                             resizing = null;
@@ -181,13 +187,10 @@ public class MiniCAD extends JFrame {
                         // once clicked, resizing is set to null
                         resizing = null;
                     }
-
-
-
                 }
 
             });
-            sidebar.add(sidebutton);
+            sidebar.add(sidebutton); // add to sidebar
         }
         // add palette as a JPanel
         JPanel palette = new JPanel();
