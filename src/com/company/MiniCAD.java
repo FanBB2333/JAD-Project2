@@ -152,7 +152,6 @@ public class MiniCAD extends JFrame {
             sidebutton.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    System.out.println(e.getKeyCode());
                     System.out.println(resizing);
                     if(resizing != null){
                         ArrayList<Integer> _resize_codes = new ArrayList<>(Arrays.asList(61, 45, 44, 46, 82));
@@ -217,7 +216,6 @@ public class MiniCAD extends JFrame {
             b.setOpaque(true);
             b.setBorderPainted(false);
             palette.add(b);
-            System.out.println(c.toString());
 
         }
 

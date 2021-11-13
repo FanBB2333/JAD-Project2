@@ -322,3 +322,11 @@ try {
 
 - `swing`为我们提供了重新绘制的`repaint`函数，但是在调用的过程中经常遇到执行完全是背景颜色的问题，因此在工程中我简单地使用了用底色白色绘制一遍的方法。
 
+- 在`macOS`中，用于选择颜色的按钮会不能正常显示，需要我们手动加上前景色的设置（这里`c`为`java.awt.Color`类型）和`setOpaque`的设置。
+```java
+// on macos
+b.setForeground(c);
+b.setOpaque(true);
+b.setBorderPainted(false);
+```
+
