@@ -4,7 +4,7 @@
 **学号**: 3190105838
 
 
-## 思路与设计
+## 一、思路与设计
 ### 布局设计
 程序中的整体框架为由三部分组成，最底层的布局为`BorderLayout`，处于EAST位置的是整个的工具栏，工具栏是一个`JPanel`，利用一个5*1的`GridLayout`分为上下两部分，上部分是四个不同功能的按键，用于选择不同的绘图类型，下部分是调色板`palette`，其中共有9个颜色，由另一个3*3的`GridLayout`负责布局，每个`Grid`中都有一个`JButton`，每个`JButton`被涂上了不同的颜色，点击对应的按钮会改变已选择的颜色。
 
@@ -150,13 +150,73 @@ public static ArrayList<Shape> shapes = new ArrayList<>();
 ```
 
 
-## 功能实现
+## 二、功能实现
 
 ### 视图更新
-为了避免视图不停刷新而造成的闪屏，如果我们不进行操作时，屏幕是不会自动刷新的，当有图形被拖动的时候，程序会先将原先的图线用白色底色绘制一遍，然后每当进入`mouseDragged`回调的时候都会将所有图形都绘制一遍
+为了避免视图不停刷新而造成的闪屏，如果我们不进行操作时，屏幕是不会自动刷新的，当有图形状态被改变的时候（即包括图形被拖动、图形改变大小、图形改变线条粗细、图形被删除，从文件中读入等操作），程序会先将原先的图线用白色底色绘制一遍，以在保证不抹去其它图形的情况下覆盖掉原先的图形，然后再对于`Shapes`里的所有图形进行遍历绘制，例如，每当进入`mouseDragged`回调的时候都会将所有图形都绘制一遍，每当从文件导入的时候也会将所有图形绘制一遍。
 
 ### 放置图形
+我们使用一个类内的静态成员来存储点击按钮的类型，通过点击不同种的按钮，在按钮的回调中可以改变`draw_type`的值，可以代表不同的绘图类型。
+```java
+public static int draw_type = 0; // 0: idle, 1: Line, 2: Rect, 3: Circle, 4: Words
+```
 
+程序当检测到有鼠标按下操作时，会将初始按下的值存在`start_point`中，作为`Shape`类中的p1定位点，而`end_point`不断随鼠标拖动而变化，作为图像的p2定位点。
+
+```java
+public static Pair<Integer> start_point = new Pair<>(0, 0);
+public static Pair<Integer> end_point = new Pair<>(0, 0);
+```
+而这个变量也在`mouseDragged`函数中读取，我们执行了`end_point`的更新操作，每次更新`end_point`的值，将原来的图形擦除掉，并绘制新的图形，由于每次新加入的图形一定是`shapes`链表中的最后一个，我们可以直接通过下标访问并重新绘制。
+```java
+if(draw_type != 0 && selected == null) {
+    end_point = new Pair<>(e.getX(), e.getY());
+    shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
+    shapes.get(shapes.size() - 1).setP2(end_point);
+    shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
+}
+```
+
+### 图形拖动
+图形的拖动主要依赖了`drag_start`变量，它记录了拖动鼠标时的起始值，在拖动时的偏移值都是依靠它为鼠标按下的初值来计算的。
+```java
+public static Pair<Integer> drag_start = new Pair<>(0, 0);
+```
+此外，为了方便计算，在保存`drag_start`变量的同时，我们也保留了图形在拖动前的`p1`, `p2`两个定位点到`p1_saved`, `p2_saved`中，
+```java
+for(Shape s : shapes){
+    if(start_point != null && s.isInside(start_point) && selected == null){
+        selected = s;
+        resizing = s;
+        System.out.println("Selected: " + selected);
+        drag_start = new Pair<>(e.getX(), e.getY());
+        p1_saved = new Pair<>(selected.p1.getX(), selected.p1.getY());
+        p2_saved = new Pair<>(selected.p2.getX(), selected.p2.getY());
+        break;
+    }
+}
+```
+下面为`mouseDragged`函数中计算偏移值的过程，每次都是以`p1_saved`, `p2_saved`为基准位置，计算当前坐标`e`和拖动初始位置`drag_start`的偏移来赋予新值。
+```java
+if(selected != null){
+    selected.draw(jf.getGraphics(), Color.white);
+    selected.setP1(new Pair<>(p1_saved.getX() + e.getX() - drag_start.getX(), p1_saved.getY() + e.getY() - drag_start.getY()));
+    selected.setP2(new Pair<>(p2_saved.getX() + e.getX() - drag_start.getX(), p2_saved.getY() + e.getY() - drag_start.getY()));
+}
+```
+
+
+此外，需要注意的是，在`mouseReleased`函数中，我们对除了`resizing`变量以外都进行了清零，为的是防止上一次的选择影响到之后的图形操作，而`resizing`变量的清零操作时在键盘回调之后产生的，这就做到了我们可以先选择图形，再调整其大小、粗细、颜色的特性。
+```java
+public void mouseReleased(MouseEvent e) {
+    System.out.println("Mouse released");
+    selected = null;
+    drag_start = null;
+    p1_saved = null;
+    p2_saved = null;
+    start_point = null;
+}
+```
 
 ### 尺寸变化
 图形的尺寸改变利用到了键盘的监听器，我们可以利用`addKeyListener`来对键盘事件进行监听，一个`KeyAdapter`的实例可以用来实现键盘按下的回调。
@@ -256,4 +316,7 @@ try {
     ex.printStackTrace();
 }
 ```
+
+## 三、难点与总结
+- 在
 

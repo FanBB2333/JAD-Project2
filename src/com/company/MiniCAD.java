@@ -241,14 +241,11 @@ public class MiniCAD extends JFrame {
 
                 if(draw_type != 0 && selected == null) {
                     end_point = new Pair<>(e.getX(), e.getY());
-//                    System.out.println(shapes);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), Color.WHITE); // Delete previous shape
                     shapes.get(shapes.size() - 1).setP2(end_point);
                     shapes.get(shapes.size() - 1).draw(jf.getGraphics(), shapes.get(shapes.size() - 1).getColor()); // Draw new shape
-
                 }
                 // paint all again
-
                 for(Shape s : shapes){
                     s.draw(jf.getGraphics(), s.getColor());
                 }
