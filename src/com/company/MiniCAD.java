@@ -262,13 +262,14 @@ public class MiniCAD extends JFrame {
         jf.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Mouse clicked");
 //                String s = JOptionPane.showInputDialog(null, "Please enter your words", "Words", JOptionPane.PLAIN_MESSAGE);
+                if(draw_type != 4 ){
+                    shapes.remove(shapes.size() - 1);
+                }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("Mouse pressed");
                 start_point = new Pair<>(e.getX(), e.getY());
 
                 for(Shape s : shapes){
@@ -308,7 +309,6 @@ public class MiniCAD extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Mouse released");
                 selected = null;
                 drag_start = null;
                 p1_saved = null;
@@ -566,9 +566,7 @@ class Words extends Shape{
     public boolean isInside(Pair<Integer> p) {
         int _x = p.getX();
         int _y = p.getY();
-        System.out.printf("%d, %d\n", width, height);
-        System.out.printf("P1: %d, %d\n", p1.getX(), p1.getY());
-        return _x > p1.getX()  && _x <p1.getX() + width && _y > p1.getY() - 0.2 * height && _y < p1.getY() + height;
+        return _x > p1.getX() - 0.5 * width  && _x <p1.getX() + width && _y > p1.getY() - 0.5 * height && _y < p1.getY() + height;
 
     }
 
